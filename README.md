@@ -9,32 +9,35 @@ See below example to check out how it works.
 
 ````php
 <?php
-require_once 'Bart.php';
+
+require_once '../Bart.php';
 
 use chrishaensel;
 
-$names = [
-	'Christian H.',
-	'Aileen T.',
-	'Kai N.',
-	'Jonas B.',
-	'Claudia L.',
-	'Petra N.',
-	'Sophie W.',
-];
-
 $bart = new chrishaensel\Bart();
 
-for ( $i = 1; $i <= 1000; $i ++ ):
-	$data = [
-		'name'       => $names[ rand( 0, count( $names ) - 1 ) ],
-		'invoice_no' => $i . ' - 311077',
-		'test'       => 'This is for you',
-		'date'       => date( 'd.m.Y', strtotime( '+' . mt_rand( 0, 30 ) . ' days' ) ),
-	];
-	echo $bart->render( "templates/invoice.tpl", $data );
-endfor;
+
+$data = [
+	'name'       => "Aileen T.",
+	'invoice_no' => rand(15000, 95000),
+	'test'       => 'This is for you',
+	'date'       => date( 'd.m.Y', strtotime( '+' . mt_rand( 0, 30 ) . ' days' ) ),
+];
+echo $bart->render( "../templates/invoice.tpl", $data );
 ````
+
+The template file
+Use {{placeholders}} - they will be replaced by the data-array values.
+Array key `blah` will replace the placeholder `{{blah}}` with its value.
+
+```
+<div class="single" style="float:left; display: inline; margin: 0 15px 15px 0; border:1px solid #ccc; padding:10px;">
+    <strong>Name: {{name}}</strong><br>
+    Invoice No.: {{invoice_no}}<br>
+    {{date}}
+</div>
+
+```
 
 Licence
 ---
